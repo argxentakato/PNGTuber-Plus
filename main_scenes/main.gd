@@ -123,6 +123,8 @@ func _ready():
 		
 		saveLoaded = true
 		
+	get_window().unresizable = true
+		
 	RenderingServer.set_default_clear_color(Global.backgroundColor)
 	swapMode()
 	settingsMenu.setvalues()

@@ -32,6 +32,11 @@ func setvalues():
 	
 	$bounceOnCostume/costumeCheck.button_pressed = Global.main.bounceOnCostumeChange
 	
+	var currentWindowSize = get_window().size
+	
+	$Resolution/Height.value = currentWindowSize.y
+	$Resolution/Width.value = currentWindowSize.x
+	
 	var costumeLabels = [$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton1/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton2/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton3/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton4/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton5/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton6/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton7/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton8/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton9/Label,$CostumeInputs/ScrollContainer/VBoxContainer/costumeButton10/Label,]
 	var tag = 1
 	for label in costumeLabels:
@@ -64,7 +69,7 @@ func _on_fps_drag_value_changed(value):
 	$MaxFPS/fpslabel.text = str(value)
 
 
-func _on_confirm_pressed():
+func _on_max_fps_confirm_pressed():
 	if $MaxFPS/fpsDrag.value == 241:
 		Engine.max_fps = 0
 		Saving.settings["maxFPS"] = 0
@@ -74,7 +79,7 @@ func _on_confirm_pressed():
 	Saving.settings["maxFPS"] = $MaxFPS/fpsDrag.value
 	
 	Global.pushUpdate("Max fps set to " + str(Engine.max_fps) + ".")
-
+	
 func _on_green_button_pressed():
 	get_viewport().transparent_bg = false
 	Global.backgroundColor = Color(0.0,1.0,0.0,1.0)
@@ -242,3 +247,11 @@ func _on_delete_9_pressed():
 func _on_delete_10_pressed():
 	var label = $CostumeInputs/ScrollContainer/VBoxContainer/costumeButton10/Label
 	deleteKey(label,10)
+
+
+func _on_resolution_confirm_pressed():
+	var size = Vector2i($Resolution/Width.value, $Resolution/Height.value)
+	
+	var window = get_window()
+	window.size = size
+	window.content_scale_size = size	
